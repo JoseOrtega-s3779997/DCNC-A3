@@ -6,7 +6,7 @@ const { join } = require("path");
 const dotenv = require("dotenv");
 dotenv.config();
 dotenv.config({
-    path: join(__dirname, ".env.local"),
+    path: join(__dirname, "../../.env.local"),
     override: true
 })
 
