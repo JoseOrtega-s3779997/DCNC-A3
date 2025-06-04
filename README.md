@@ -11,6 +11,15 @@
     pnpm start
     # expected random output from model
     ```
+## Dependencies
+This project invovles the use of React and Next.js framework. The code will run based on the Week 8 Lab provided, modified to be
+similar to the Lab 9 example via Javascript.
+* `aws-sdk` Service to connect to Amazon cloud
+* `eslint` Built-in error checking
+* `pdf-parse` PDF reader
+* `danfojs` Data organisation (panda alternative)
+
+
 ## Models Available
 We provides several powerful models for students to access:
 * **Anthropic Claude 3 Haiku** ( anthropic.claude-3-haiku-20240307-v1:0 )
