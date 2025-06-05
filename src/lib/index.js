@@ -16,6 +16,7 @@ const IDENTITY_POOL_ID = process.env.IDENTITY_POOL_ID;
 const USER_POOL_ID = process.env.USER_POOL_ID;
 const APP_CLIENT_ID = process.env.APP_CLIENT_ID;
 
+// This functions as intended similar to Python example DO NOT TOUCH
 async function getCredentials(username, password) {
     try {
         // Step 1: Authenticate with Cognito User Pool to get ID token
@@ -46,6 +47,8 @@ async function getCredentials(username, password) {
         throw error;
     }
 }
+// This functions as intended similar to Python example DO NOT TOUCH
+
 
 async function invokeBedrock() {
     try {
@@ -56,9 +59,9 @@ async function invokeBedrock() {
 
         const input = {
             modelId: MODEL_ID,
-            system: [ {text: "You are a helpful assistant helps solving users' problem."} ],
+            system: [ {text: "You are a helpful assistant helps solving users' problem."} ], // This can be changed through user input
             messages: [
-                { role: 'user', content: [ { text: "Hello, how are you?" } ] }
+                { role: 'user', content: [ { text: "Hello, how are you?" } ] } // This needs to be replaced by a user variable from web form
             ],
             infereceConfig: {
                 maxTokens: 64,
@@ -71,6 +74,7 @@ async function invokeBedrock() {
         if (!response) {
             console.error("No response!")
         } else {
+            // This block will be returned and exported
             console.log("=".repeat(30))
             console.log("")
             console.log(response.output.message.content[0].text);
@@ -82,4 +86,18 @@ async function invokeBedrock() {
     }
 }
 
-invokeBedrock();
+invokeBedrock(); // This calls the invoke functions to run the AWS server
+
+// TODO
+// 1. Through the webpage, the user will enter a prompt. It may be mandatory to upload official course documentation.
+// 2. Through API Routing, the webpage needs to send a req to the index.js to run the chatbot.
+// 3. The index.js needs to process user prompt, assign it a string variable.
+// 4. Then it needs to read JSON or PDF files and assign them a varaible.
+// 5. Then a build prompt function will put these together into one variable to return.
+// 6. Then it calls the bedrock runtime function to send the data over to the AWS server.
+// 7. The function then returns the answer back to the API.
+// 8. The index.js needs to return or export the "answer" variable back to API to be able to display on the webpage
+// - (OPTIONAL)
+// - Have a function that allows users to change MODELS
+// - Have a function that allows users to adjust the bot's temperature and probability to their liking
+// - Build a website proper for better user experience.
