@@ -1,3 +1,14 @@
+/**
+ * Code originally from DCNC Week 8 lab example, modified
+ * 
+ * @throws Credential error: Throws an error when user inputs incorrect or missing credentials
+ * @throws API error: Throws an error if API fails to communicate with AWS Bedrock
+ * @param username Authenticated user in .env local file
+ * @param password User's password in .env local file
+ * @function getCredentials Recieves user input and password and authenticates user key and token
+ * @function invokeBedrock Communicate with AWS bedrock with given user prompts and documents
+ */
+
 const { BedrockRuntimeClient, ConverseCommand } = require("@aws-sdk/client-bedrock-runtime");
 const { fromCognitoIdentityPool } = require("@aws-sdk/credential-providers");
 const { CognitoIdentityProviderClient, InitiateAuthCommand } = require("@aws-sdk/client-cognito-identity-provider");
