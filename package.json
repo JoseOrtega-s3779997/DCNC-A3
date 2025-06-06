@@ -10,6 +10,16 @@
     "next-start": "next start",
     "lint": "next lint"
   },
+  
+  "compilerOptions": {
+    "baseUrl": "src/",
+    "paths": {
+      "@/styles/*": ["styles/*"],
+      "@/components/*": ["components/*"],
+      "@/lib/*": ["lib/*"]
+    }
+  },
+
   "keywords": [
     "AI",
     "AWS",
