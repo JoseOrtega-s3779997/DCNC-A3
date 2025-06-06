@@ -10,16 +10,20 @@
     "next-start": "next start",
     "lint": "next lint"
   },
-  
   "compilerOptions": {
     "baseUrl": "src/",
     "paths": {
-      "@/styles/*": ["styles/*"],
-      "@/components/*": ["components/*"],
-      "@/lib/*": ["lib/*"]
+      "@/styles/*": [
+        "styles/*"
+      ],
+      "@/components/*": [
+        "components/*"
+      ],
+      "@/lib/*": [
+        "lib/*"
+      ]
     }
   },
-
   "keywords": [
     "AI",
     "AWS",
@@ -33,6 +37,7 @@
     "@aws-sdk/credential-providers": "^3.810.0",
     "dotenv": "^16.5.0",
     "next": "^15.3.3",
+    "pdf-parse": "^1.1.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
