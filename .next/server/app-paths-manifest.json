@@ -1,3 +1,4 @@
 {
+  "/api/chatbot/route": "app/api/chatbot/route.js",
   "/page": "app/page.js"
 }

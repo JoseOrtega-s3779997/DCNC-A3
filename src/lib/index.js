@@ -21,12 +21,19 @@ dotenv.config({
     path: join(__dirname, "../../.env.local"),
     override: true
 })
+// Output credentials on console for testing DELETE LATER
+console.log("Loaded ENV values:");
+console.log("USERNAME:", process.env.COGNITO_USERNAME);
+console.log("PASSWORD:", process.env.COGNITO_PASSWORD);
+console.log("APP_CLIENT_ID:", process.env.APP_CLIENT_ID);
 
 const REGION = process.env.REGION;
 const MODEL_ID = process.env.MODEL_ID;
 const IDENTITY_POOL_ID = process.env.IDENTITY_POOL_ID;
 const USER_POOL_ID = process.env.USER_POOL_ID;
 const APP_CLIENT_ID = process.env.APP_CLIENT_ID;
+const USERNAME = process.env.COGNITO_USERNAME;
+const PASSWORD = process.env.COGNITO_PASSWORD;
 
 // This functions as intended similar to Python example DO NOT TOUCH
 async function getCredentials(username, password) {
@@ -65,7 +72,7 @@ async function invokeBedrock(userInput) {
     try {
         const bedrockClient = new BedrockRuntimeClient({
             region: REGION,
-            credentials: await getCredentials(process.env.USERNAME, process.env.PASSWORD)
+            credentials: await getCredentials(USERNAME, PASSWORD)
         });
 
         const input = {

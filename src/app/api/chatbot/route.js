@@ -1,20 +1,27 @@
-import { invokeBedrock } from '../../lib/index.js';
-export default async function AWShandler(req, res) {
-    if (req.method !== 'POST') {
-        return res.status(405).json({ error: 'Only POST method is allowed' });
-    }
+import { invokeBedrock } from '../../../lib/index.js';
 
-    const { userPrompt } = req.body;
-
-    if (!userPrompt) {
-        return res.status(400).json({ error: 'Missing user prompt' });
-    }
-    
+export async function POST(req) {
     try {
+        const body = await req.json(); // must await JSON from Request object
+        const { userPrompt } = body;
+
+        if (!userPrompt) {
+            return new Response(JSON.stringify({ error: 'Missing user prompt' }), {
+                status: 400,
+                headers: { 'Content-Type': 'application/json' }
+            });
+        }
+
         const reply = await invokeBedrock(userPrompt);
-        res.status(200).json({ response: reply });
+        return new Response(JSON.stringify({ response: reply }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' }
+        });
     } catch (error) {
         console.error("API Error:", error);
-        res.status(500).json({ error: 'Something went wrong' });
+        return new Response(JSON.stringify({ error: 'Something went wrong' }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' }
+        });
     }
 }
