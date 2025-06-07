@@ -43,14 +43,13 @@ export default function Page() {
       <p>This AI assistant will help answer your questions related to STEM courses</p>
 
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
+        <textarea
           id="userPrompt"
           name="userPrompt"
           placeholder="How may I assist you?"
           value={userPrompt}
           onChange={(e) => setUserPrompt(e.target.value)}
-          required
+          rows={3}
         />
         <button type="submit" disabled={loading}>
           {loading ? 'Loading...' : 'Submit'}
