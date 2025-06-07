@@ -1,5 +1,8 @@
-import { invokeBedrock } from '../../lib/';
+import { invokeBedrock } from '../../lib/index.js';
 export default async function AWShandler(req, res) {
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Only POST method is allowed' });
+    }
 
     const { userPrompt } = req.body;
 

@@ -19,11 +19,16 @@ export default function Page() {
       const res = await fetch('/api/chatbot/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ user_prompt: userPrompt })
+        body: JSON.stringify({ userPrompt: userPrompt })
       });
 
       const data = await res.json();
-      setResponse(data.result || data.error || 'No response');
+      if (res.ok) {
+            setResponse(data.response);
+        } else {
+            setResponse("Error: " + data.error);
+        }
+    
     } catch (err) {
         console.error('Request failed:', err);
         setResponse('Error talking to AWS.');
@@ -40,8 +45,8 @@ export default function Page() {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          id="user_prompt"
-          name="user_prompt"
+          id="userPrompt"
+          name="userPrompt"
           placeholder="How may I assist you?"
           value={userPrompt}
           onChange={(e) => setUserPrompt(e.target.value)}
