@@ -3,6 +3,7 @@
  * 
  * @throws Credential error: Throws an error when user inputs incorrect or missing credentials
  * @throws API error: Throws an error if API fails to communicate with AWS Bedrock
+ * @param userInput User input extracted from API route from browser
  * @param username Authenticated user in .env local file
  * @param password User's password in .env local file
  * @function getCredentials Recieves user input and password and authenticates user key and token
@@ -60,44 +61,79 @@ async function getCredentials(username, password) {
 }
 // This functions as intended similar to Python example DO NOT TOUCH
 
-
-async function invokeBedrock() {
+async function invokeBedrock(userInput) {
     try {
         const bedrockClient = new BedrockRuntimeClient({
-            region:REGION,
+            region: REGION,
             credentials: await getCredentials(process.env.USERNAME, process.env.PASSWORD)
         });
 
         const input = {
             modelId: MODEL_ID,
-            system: [ {text: "You are a helpful assistant helps solving users' problem."} ], // This can be changed through user input
+            system: [{ text: "You are a helpful assistant that helps solve users' problems." }],
             messages: [
-                { role: 'user', content: [ { text: "Hello, how are you?" } ] } // This needs to be replaced by a user variable from web form
+                { role: 'user', content: [{ text: userInput }] }
             ],
-            infereceConfig: {
-                maxTokens: 64,
+            inferenceConfig: { // OPTIONAL: Have a function to allow changing of temperature and topP
+                maxTokens: 128,
                 temperature: 0.2,
                 topP: 0.9
             }
-        }
+        };
 
         const response = await bedrockClient.send(new ConverseCommand(input));
+
         if (!response) {
-            console.error("No response!")
-        } else {
-            // This block will be returned and exported
-            console.log("=".repeat(30))
-            console.log("")
-            console.log(response.output.message.content[0].text);
-            console.log("")
-            console.log("=".repeat(30))
+            console.error("No response!");
+            return null;
         }
-    } catch(error) {
-        console.error(error)
+
+        return response.output.message.content[0].text;
+    } catch (error) {
+        console.error("Error invoking Bedrock:", error);
+        throw error;
     }
 }
 
-invokeBedrock(); // This calls the invoke functions to run the AWS server
+module.exports = { invokeBedrock };
+// async function invokeBedrock() {
+//     try {
+//         const bedrockClient = new BedrockRuntimeClient({
+//             region:REGION,
+//             credentials: await getCredentials(process.env.USERNAME, process.env.PASSWORD)
+//         });
+
+//         const input = {
+//             modelId: MODEL_ID,
+//             system: [ {text: "You are a helpful assistant helps solving users' problem."} ], // This can be changed through user input
+//             messages: [
+//                 { role: 'user', content: [ { text: "Hello, how are you?" } ] } // This needs to be replaced by a user variable from web form
+//             ],
+//             infereceConfig: {
+//                 maxTokens: 64,
+//                 temperature: 0.2,
+//                 topP: 0.9
+//             }
+//         }
+
+//         const response = await bedrockClient.send(new ConverseCommand(input));
+//         if (!response) {
+//             console.error("No response!")
+//         } else {
+//             // This block will be returned and exported
+//             console.log("=".repeat(30))
+//             console.log("")
+//             console.log(response.output.message.content[0].text);
+//             console.log("")
+//             console.log("=".repeat(30))
+//             return // Insert response here;
+//         }
+//     } catch(error) {
+//         console.error(error)
+//     }
+// }
+
+// invokeBedrock(); // This calls the invoke functions to run the AWS server
 
 // TODO
 // 1. Through the webpage, the user will enter a prompt. It may be mandatory to upload official course documentation.

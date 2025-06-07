@@ -11,6 +11,7 @@
 *.sln.docstates
 node_modules/
 *.next/
+*.next/cache/
 *.env
 
 # User-specific files (MonoDevelop/Xamarin Studio)

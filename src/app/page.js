@@ -1,3 +1,5 @@
+
+
 "use client"; // Only rendered for client-side
 
 import { useState } from 'react'; // This is needed so that react knows that the page is updated dynamically
@@ -6,10 +8,10 @@ export default function Page() {
   // Set default values
   const [userPrompt, setUserPrompt] = useState('');
   const [response, setResponse] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); 
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // This prevents the form from actually submitting and reloading the page
     setLoading(true);
     setResponse('');
 
