@@ -1,4 +1,9 @@
-import { invokeBedrock } from '../../../lib/index.js';
+/**
+ * This is an API endpoint where the user page (HTML) will send a request to communicate with index.js
+ * The API will then pass the response back to the user.
+ */
+
+import { invokeBedrock } from '../../../lib/index.js'; // Invoke the index.js file (Adjust when moving the file)
 
 export async function POST(req) {
     try {
