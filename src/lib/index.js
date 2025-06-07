@@ -75,16 +75,17 @@ async function invokeBedrock(userInput) {
             credentials: await getCredentials(USERNAME, PASSWORD)
         });
 
+        // This returns a JSON formatted response back to the API
         const input = {
             modelId: MODEL_ID,
-            system: [{ text: "You are a helpful assistant that helps solve users' problems." }],
+            system: [{ text: "You are an assistant that always outputs a rhyme." }], // TODO: adjust prompt
             messages: [
                 { role: 'user', content: [{ text: userInput }] }
             ],
             inferenceConfig: { // OPTIONAL: Have a function to allow changing of temperature and topP
-                maxTokens: 128,
-                temperature: 0.2,
-                topP: 0.9
+                maxTokens: 128, // <= Output size; the max amount of tokens (words) allowed to be generated
+                temperature: 0.5, // <= Creativity; 0.0 for most accurate, factual | 1.0 for more whimsy, randomness
+                topP: 0.5 // <= Sampling; 0.0 for safest, most predictable | 1.0 for more diversity, less predictable
             }
         };
 
@@ -143,9 +144,9 @@ module.exports = { invokeBedrock };
 // invokeBedrock(); // This calls the invoke functions to run the AWS server
 
 // TODO
-// 1. Through the webpage, the user will enter a prompt. It may be mandatory to upload official course documentation.
-// 2. Through API Routing, the webpage needs to send a req to the index.js to run the chatbot.
-// 3. The index.js needs to process user prompt, assign it a string variable.
+// 1. Through the webpage, the user will enter a prompt. It may be mandatory to upload official course documentation. DONE
+// 2. Through API Routing, the webpage needs to send a req to the index.js to run the chatbot. DONE
+// 3. The index.js needs to process user prompt, assign it a string variable. DONE
 // 4. Then it needs to read JSON or PDF files and assign them a varaible.
 // 5. Then a build prompt function will put these together into one variable to return.
 // 6. Then it calls the bedrock runtime function to send the data over to the AWS server.
