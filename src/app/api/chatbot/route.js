@@ -1,4 +1,17 @@
 import { invokeBedrock } from '../../lib/';
-export default async function handler(req, res) {
+export default async function AWShandler(req, res) {
 
+    const { userPrompt } = req.body;
+
+    if (!userPrompt) {
+        return res.status(400).json({ error: 'Missing user prompt' });
+    }
+    
+    try {
+        const reply = await invokeBedrock(userPrompt);
+        res.status(200).json({ response: reply });
+    } catch (error) {
+        console.error("API Error:", error);
+        res.status(500).json({ error: 'Something went wrong' });
+    }
 }
