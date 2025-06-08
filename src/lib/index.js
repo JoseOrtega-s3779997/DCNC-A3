@@ -78,7 +78,10 @@ async function invokeBedrock(userInput) {
         // This returns a JSON formatted response back to the API
         const input = {
             modelId: MODEL_ID,
-            system: [{ text: "You are an assistant that always outputs a rhyme." }], // TODO: adjust prompt
+            system: [{ text: "You are a helpful assistant that supports students in selecting courses from the " +
+                "Bachelor of Cyber Security program at RMIT (codes BP355/BP356). " +
+                "Recommend only from the official course list. Each course is categorized as core, capstone, minor, or elective. " +
+                "Use the recommended structure to suggest suitable courses based on study year and interest.\n\n" }], // TODO: adjust prompt
             messages: [
                 { role: 'user', content: [{ text: userInput }] }
             ],
