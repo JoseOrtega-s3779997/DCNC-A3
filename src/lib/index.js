@@ -68,28 +68,30 @@ async function getCredentials(username, password) {
 }
 // This functions as intended similar to Python example DO NOT TOUCH
 
-async function invokeBedrock(userInput, docText ="") {
-    try {
-        const bedrockClient = new BedrockRuntimeClient({
-            region: REGION,
-            credentials: await getCredentials(USERNAME, PASSWORD)
-        });
+async function invokeBedrock(userPrompt, docText = '') {
+  try {
+    const bedrockClient = new BedrockRuntimeClient({
+      region: REGION,
+      credentials: await getCredentials(USERNAME, PASSWORD)
+    });
 
-        // This returns a JSON formatted response back to the API
-        const input = {
-            modelId: MODEL_ID,
-            system: [{ text: "You are a helpful assistant that supports students in selecting courses from the " +
-                "Bachelor of Cyber Security program at RMIT (codes BP355/BP356). " +
-                "Recommend only from the official course list. Each course is categorized as core, capstone, minor, or elective. " +
-                "Use the recommended structure to suggest suitable courses based on study year and interest.\n\n" }], // TODO: adjust prompt
-            messages: [
-                { role: 'user', content: [{ text: userInput }] }
-            ],
-            inferenceConfig: { // OPTIONAL: Have a function to allow changing of temperature and topP
-                maxTokens: 128, // <= Output size; the max amount of tokens (words) allowed to be generated
-                temperature: 0.5, // <= Creativity; 0.0 for most accurate, factual | 1.0 for more whimsy, randomness
-                topP: 0.5 // <= Sampling; 0.0 for safest, most predictable | 1.0 for more diversity, less predictable
-            }
+    const input = {
+      modelId: MODEL_ID,
+      system: [{
+        text: "You are a helpful assistant that supports students in selecting courses from the " +
+              "Bachelor of Cyber Security program at RMIT (codes BP355/BP356). " +
+              "Recommend only from the official course list. Each course is categorized as core, capstone, minor, or elective. " +
+              "Use the recommended structure to suggest suitable courses based on study year and interest."
+      }],
+      messages: [{
+        role: "user",
+        content: [{ text: `${userPrompt}\n\n${docText ? "Document:\n" + docText : ''}` }]
+      }],
+        inferenceConfig: { // OPTIONAL: Have a function to allow changing of temperature and topP
+            maxTokens: 1024, // <= Output size; the max amount of tokens (words) allowed to be generated
+            temperature: 0.5, // <= Creativity; 0.0 for most accurate, factual | 1.0 for more whimsy, randomness
+            topP: 0.5 // <= Sampling; 0.0 for safest, most predictable | 1.0 for more diversity, less predictable
+        }
         };
 
         const response = await bedrockClient.send(new ConverseCommand(input));
