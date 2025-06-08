@@ -105,7 +105,10 @@ async function invokeBedrock(userPrompt, docText = '') {
             return null;
         }
 
-        return response.output.message.content[0].text;
+        return {
+            raw: response,
+            message: response.output.message.content[0].text
+        };
     } catch (error) {
         console.error("Error invoking Bedrock:", error);
         throw error;
