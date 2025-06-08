@@ -1,11 +1,31 @@
 
 /**
  * Chabot UI
- */
+ *
+ * [User types a prompt] → userPrompt
+ * [User uploads a PDF] → file
+ *
+ * [User clicks Submit] → handleSubmit()
+ *
+ * handleSubmit() → builds FormData with prompt and file
+ *               → sends to /api/chatbot/
+ *
+ * API (backend) → reads text and PDF, sends to AWS
+ *             → returns JSON response
+ *
+ * Frontend → updates UI with response
+**/
+
 "use client"; // Only rendered for client-side
 
 import { useState } from 'react'; // This is needed so that react knows that the page is updated dynamically
 
+/**
+ * Renders the chatbot page where the user can enter a prompt and upload a file.
+ *
+ * @component
+ * @returns {JSX.Element} The chatbot UI component
+ */
 export default function Page() {
   // Set default values
   const [userPrompt, setUserPrompt] = useState('');
@@ -79,16 +99,3 @@ export default function Page() {
     </main>
   );
 }
-
-// [User types a prompt] → userPrompt
-// [User uploads a PDF] → file
-
-// [User clicks Submit] → handleSubmit()
-
-// handleSubmit() → builds FormData with prompt and file
-//               → sends to /api/chatbot/
-
-// API (backend) → reads text and PDF, sends to AWS
-//              → returns JSON response
-
-// Frontend → updates UI with response
