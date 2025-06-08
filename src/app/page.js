@@ -61,7 +61,7 @@ export default function Page() {
 
         <input
           type="file"
-          accept="application/pdf"
+          accept=".pdf, image/jpeg, image/png, text/plain"
           onChange={(e) => setFile(e.target.files[0])}
         />
 
