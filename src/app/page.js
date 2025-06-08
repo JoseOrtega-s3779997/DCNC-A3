@@ -14,34 +14,33 @@ export default function Page() {
   const [file, setFile] = useState(null); // File upload state
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // This prevents the form from actually submitting and reloading the page
+    e.preventDefault(); // Prevents the form from submitting and reloading the page
     setLoading(true);
     setResponse('');
 
     try {
+      const formData = new FormData();
+      formData.append('userPrompt', userPrompt);
+      if (file) {
+        formData.append('file', file);
+      }
 
-      const formData = new FormData(); // Create form data for multipart upload
-      formData.append("userPrompt", userPrompt);
-      if (file) formData.append("file", file); // Append file only if selected
-
-      const res = await fetch('/api/chatbot/', { // 1. This calls the API via fetch
+      const res = await fetch('/api/chatbot/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userPrompt: userPrompt })
+        body: formData
       });
 
-      const data = await res.json(); // 2. assign data a JSON response from index.js
+      const data = await res.json(); // assign data a JSON response from index.js
       if (res.ok) {
-            setResponse(data.response); // 3. if a response is recieved, assigns 'response' to data variable
-        } else {
-            setResponse("Error: " + data.error);
-        }
-    
+        setResponse(data.response); // assign 'response' to data variable
+      } else {
+        setResponse("Error: " + data.error);
+      }
     } catch (err) {
-        console.error('Request failed:', err);
-        setResponse('Error talking to AWS.');
+      console.error('Request failed:', err);
+      setResponse('Error talking to AWS.');
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
 
@@ -50,7 +49,7 @@ export default function Page() {
       <h1>RMIT STEM Advisor</h1>
       <p>This AI assistant will help answer your questions related to STEM courses</p>
 
-      <form onSubmit={handleSubmit}> {/* 4. Calls the handleSubmit function when user submits the form */}
+      <form onSubmit={handleSubmit}> {/* Calls the handleSubmit function when user submits the form */}
         <textarea
           id="userPrompt"
           name="userPrompt"
@@ -71,7 +70,7 @@ export default function Page() {
         </button>
       </form>
 
-      {response && ( // 5. Outputs the response
+      {response && ( // Outputs the response
         <div style={{ marginTop: '1em' }}>
           <strong>Response:</strong>
           <p>{response}</p>
