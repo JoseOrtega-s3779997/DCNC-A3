@@ -1,14 +1,6 @@
 /**
  * Code originally from DCNC Week 8 lab example, modified
- * 
- * @throws Credential error: Throws an error when user inputs incorrect or missing credentials
- * @throws API error: Throws an error if API fails to communicate with AWS Bedrock
- * @param userInput User input extracted from API route from browser
- * @param username Authenticated user in .env local file
- * @param password User's password in .env local file
- * @function getCredentials Recieves user input and password and authenticates user key and token
- * @function invokeBedrock Communicate with AWS bedrock with given user prompts and documents
- */
+ **/
 
 const { BedrockRuntimeClient, ConverseCommand } = require("@aws-sdk/client-bedrock-runtime");
 const { fromCognitoIdentityPool } = require("@aws-sdk/credential-providers");
@@ -35,6 +27,17 @@ const APP_CLIENT_ID = process.env.APP_CLIENT_ID;
 const USERNAME = process.env.COGNITO_USERNAME;
 const PASSWORD = process.env.COGNITO_PASSWORD;
 
+/**
+ * Authenticates the user with AWS Cognito using username and password,
+ * then returns temporary AWS credentials.
+ *
+ * This functions as intended similar to Python example DO NOT TOUCH
+ *
+ * @param {string} username - Cognito username
+ * @param {string} password - Cognito password
+ * @returns {Promise<import("@aws-sdk/types").AwsCredentialIdentityProvider>} - Temporary AWS credentials
+ * @throws {Error} If authentication or credential fetching fails
+ */
 // This functions as intended similar to Python example DO NOT TOUCH
 async function getCredentials(username, password) {
     try {
@@ -66,8 +69,19 @@ async function getCredentials(username, password) {
         throw error;
     }
 }
-// This functions as intended similar to Python example DO NOT TOUCH
 
+// This functions as intended similar to Python example DO NOT TOUCH
+/**
+ * Sends user input and optional document content to AWS Bedrock
+ * using the ConverseCommand and returns the generated response.
+ *
+ * This functions as intended similar to Python example DO NOT TOUCH
+ *
+ * @param {string} userPrompt - The user's question or input
+ * @param {string} [docText=''] - Optional extracted text from a PDF or other document
+ * @returns {Promise<{raw: object, message: string}>} - AI response and raw response for debugging
+ * @throws {Error} If the Bedrock API call fails
+ */
 async function invokeBedrock(userPrompt, docText = '') {
   try {
     const bedrockClient = new BedrockRuntimeClient({
@@ -94,10 +108,11 @@ async function invokeBedrock(userPrompt, docText = '') {
         }
         };
 
+        // Output data to be sent
         console.log("Sending this JSON to Bedrock:\n", JSON.stringify(input, null, 2));
-
+        // response assigned bedrock response
         const response = await bedrockClient.send(new ConverseCommand(input));
-
+        // Output response
         console.log("Raw Bedrock response:\n", JSON.stringify(response, null, 2));
 
         if (!response) {
@@ -116,6 +131,8 @@ async function invokeBedrock(userPrompt, docText = '') {
 }
 
 module.exports = { invokeBedrock };
+
+// Keep old code just in case
 // async function invokeBedrock() {
 //     try {
 //         const bedrockClient = new BedrockRuntimeClient({
