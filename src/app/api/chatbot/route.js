@@ -1,5 +1,10 @@
 /** 
- * API backend for processing user inputs and recieving index.js output
+ * API backend for processing user inputs and receiving index.js output.
+ * 
+ * This route handles POST requests with multipart/form-data,
+ * optionally containing a PDF file and a text prompt.
+ * It extracts the PDF content and sends it along with the prompt
+ * to the AWS Bedrock model for AI-based response generation.
  */
 
 import formidable from 'formidable';
@@ -8,11 +13,21 @@ import pdfParse from 'pdf-parse';
 import { Readable } from 'stream';
 import { invokeBedrock } from '../../../lib/index.js';
 
-// Prevent automatic parsing of multipart data
+/**
+ * Configuration to disable automatic body parsing by Next.js,
+ * allowing us to manually parse multipart form data.
+ */
 export const config = {
   api: { bodyParser: false }
 };
 
+/**
+ * Parses multipart/form-data from the incoming request using formidable.
+ *
+ * @param {Request} req - The incoming Next.js API request.
+ * @returns {Promise<{fields: Record<string, string[]>, files: Record<string, formidable.File[]>}>}
+ *          Resolves with parsed form fields and uploaded files.
+ */
 async function parseFormData(req) {
   const form = formidable({ keepExtensions: true });
 
@@ -30,13 +45,11 @@ async function parseFormData(req) {
     }
   });
 
-  // Create a fake Node.js-style request object for formidable
   const fakeReq = Object.assign(stream, {
     headers,
     method: req.method
   });
 
-  // Parse the form data
   return new Promise((resolve, reject) => {
     form.parse(fakeReq, (err, fields, files) => {
       if (err) return reject(err);
@@ -45,16 +58,25 @@ async function parseFormData(req) {
   });
 }
 
+/**
+ * Handles POST requests to the chatbot API.
+ * Parses the form input, reads and parses an optional PDF file,
+ * and sends the combined user input and PDF content to the Bedrock AI model.
+ *
+ * @param {Request} req - The incoming Next.js API POST request.
+ * @returns {Promise<Response>} - The HTTP response containing AI output or error.
+ */
 export async function POST(req) {
   try {
     const { fields, files } = await parseFormData(req);
-    // fields contain userinput, files contain uploaded files
+    // 'fields' contains userPrompt, 'files' may contain a file upload
 
     const userPrompt = fields.userPrompt?.[0] || '';
     let pdfText = '';
 
     if (files.file?.[0]) {
       try {
+        // Read and extract text from the uploaded PDF file
         const buffer = await fs.readFile(files.file[0].filepath);
         const parsed = await pdfParse(buffer);
         pdfText = parsed.text;
@@ -63,11 +85,12 @@ export async function POST(req) {
       }
     }
 
+    // Send prompt and optional PDF text to Bedrock AI
     const { raw, message } = await invokeBedrock(userPrompt, pdfText);
 
     return new Response(JSON.stringify({ response: message, debug: raw }), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json' }
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
     });
   } catch (err) {
     console.error('Handler error:', err);

@@ -106,7 +106,7 @@ async function invokeBedrock(userPrompt, docText = '') {
         }
 
         return {
-            raw: response,
+            raw: response, // For debugging purposes (check console)
             message: response.output.message.content[0].text
         };
     } catch (error) {
