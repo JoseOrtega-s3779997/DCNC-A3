@@ -79,7 +79,7 @@ async function invokeBedrock(userPrompt, docText = '') {
       modelId: MODEL_ID,
       system: [{
         text: "You are a helpful assistant that supports students in selecting courses from the " +
-              "Bachelor of Cyber Security program at RMIT (codes BP355/BP356). " +
+              "Bachelor of Cyber Security program at RMIT (codes BP355/BP356). " + // Add variable to replace degree
               "Recommend only from the official course list. Each course is categorized as core, capstone, minor, or elective. " +
               "Use the recommended structure to suggest suitable courses based on study year and interest."
       }],
@@ -89,12 +89,16 @@ async function invokeBedrock(userPrompt, docText = '') {
       }],
         inferenceConfig: { // OPTIONAL: Have a function to allow changing of temperature and topP
             maxTokens: 1024, // <= Output size; the max amount of tokens (words) allowed to be generated
-            temperature: 0.5, // <= Creativity; 0.0 for most accurate, factual | 1.0 for more whimsy, randomness
+            temperature: 0.2, // <= Creativity; 0.0 for most accurate, factual | 1.0 for more whimsy, randomness
             topP: 0.5 // <= Sampling; 0.0 for safest, most predictable | 1.0 for more diversity, less predictable
         }
         };
 
+        console.log("Sending this JSON to Bedrock:\n", JSON.stringify(input, null, 2));
+
         const response = await bedrockClient.send(new ConverseCommand(input));
+
+        console.log("Raw Bedrock response:\n", JSON.stringify(response, null, 2));
 
         if (!response) {
             console.error("No response!");

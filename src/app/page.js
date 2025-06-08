@@ -61,12 +61,12 @@ export default function Page() {
 
         <input
           type="file"
-          accept=".pdf, image/jpeg, image/png, text/plain"
+          accept=".pdf, image/jpeg, image/png, text/plain" // Add more file types if necessary
           onChange={(e) => setFile(e.target.files[0])}
         />
 
         <button type="submit" disabled={loading}>
-          {loading ? 'Loading...' : 'Submit'}
+          {loading ? 'Loading...' : 'Submit'} 
         </button>
       </form>
 
