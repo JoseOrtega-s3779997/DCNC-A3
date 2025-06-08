@@ -83,7 +83,10 @@ async function invokeBedrock(userInput) {
                 "Recommend only from the official course list. Each course is categorized as core, capstone, minor, or elective. " +
                 "Use the recommended structure to suggest suitable courses based on study year and interest.\n\n" }], // TODO: adjust prompt
             messages: [
-                { role: 'user', content: [{ text: userInput }] }
+                {
+                    role: "user",
+                    content: [{ text: `${userInput}\n\nDocument:\n${docText}` }]
+                }
             ],
             inferenceConfig: { // OPTIONAL: Have a function to allow changing of temperature and topP
                 maxTokens: 128, // <= Output size; the max amount of tokens (words) allowed to be generated
