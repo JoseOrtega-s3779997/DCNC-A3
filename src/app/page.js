@@ -11,6 +11,7 @@ export default function Page() {
   const [userPrompt, setUserPrompt] = useState('');
   const [response, setResponse] = useState('');
   const [loading, setLoading] = useState(false);  // Changes the button label
+  const [file, setFile] = useState(null); // File upload state
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // This prevents the form from actually submitting and reloading the page
@@ -18,6 +19,11 @@ export default function Page() {
     setResponse('');
 
     try {
+
+      const formData = new FormData(); // Create form data for multipart upload
+      formData.append("userPrompt", userPrompt);
+      if (file) formData.append("file", file); // Append file only if selected
+
       const res = await fetch('/api/chatbot/', { // 1. This calls the API via fetch
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -44,7 +50,7 @@ export default function Page() {
       <h1>RMIT STEM Advisor</h1>
       <p>This AI assistant will help answer your questions related to STEM courses</p>
 
-      <form onSubmit={handleSubmit}> // 4. Calls the handleSubmit function when user submits the form
+      <form onSubmit={handleSubmit}> {/* 4. Calls the handleSubmit function when user submits the form */}
         <textarea
           id="userPrompt"
           name="userPrompt"
@@ -53,6 +59,13 @@ export default function Page() {
           onChange={(e) => setUserPrompt(e.target.value)}
           rows={3}
         />
+
+        <input
+          type="file"
+          accept="application/pdf"
+          onChange={(e) => setFile(e.target.files[0])}
+        />
+
         <button type="submit" disabled={loading}>
           {loading ? 'Loading...' : 'Submit'}
         </button>
