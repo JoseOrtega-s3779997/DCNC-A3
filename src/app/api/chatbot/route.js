@@ -1,9 +1,14 @@
+/** 
+ * API backend for processing user inputs and recieving index.js output
+ */
+
 import formidable from 'formidable';
 import fs from 'fs/promises';
 import pdfParse from 'pdf-parse';
 import { Readable } from 'stream';
 import { invokeBedrock } from '../../../lib/index.js';
 
+// Prevent automatic parsing of multipart data
 export const config = {
   api: { bodyParser: false }
 };
@@ -25,12 +30,13 @@ async function parseFormData(req) {
     }
   });
 
-  // Create a fake Node.js-style request object
+  // Create a fake Node.js-style request object for formidable
   const fakeReq = Object.assign(stream, {
     headers,
     method: req.method
   });
 
+  // Parse the form data
   return new Promise((resolve, reject) => {
     form.parse(fakeReq, (err, fields, files) => {
       if (err) return reject(err);
@@ -42,6 +48,7 @@ async function parseFormData(req) {
 export async function POST(req) {
   try {
     const { fields, files } = await parseFormData(req);
+    // fields contain userinput, files contain uploaded files
 
     const userPrompt = fields.userPrompt?.[0] || '';
     let pdfText = '';
@@ -58,7 +65,7 @@ export async function POST(req) {
 
     const reply = await invokeBedrock(userPrompt, pdfText);
 
-    return new Response(JSON.stringify({ response: reply }), {
+    return new Response(JSON.stringify({ response: reply }), { // this will return the 'response' portion of the JSON data
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });

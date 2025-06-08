@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RMIT STEM Advisor</title>
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    textarea { width: 100%; height: 60px; }
+    button { margin-top: 1em; }
+    #responseBox { margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>RMIT STEM Advisor</h1>
+  <p>This AI assistant will help answer your questions related to STEM courses</p>
+
+  <form id="chatForm">
+    <textarea
+      id="userPrompt"
+      name="userPrompt"
+      placeholder="How may I assist you?"
+      required
+    ></textarea><br><br>
+
+    <input
+      type="file"
+      id="fileInput"
+      accept="application/pdf"
+    /><br><br>
+
+    <button type="submit" id="submitButton">Submit</button>
+  </form>
+
+  <div id="responseBox" style="display: none;">
+    <strong>Response:</strong>
+    <p id="responseText"></p>
+  </div>
+
+  <script>
+    const form = document.getElementById('chatForm');
+    const promptInput = document.getElementById('userPrompt');
+    const fileInput = document.getElementById('fileInput');
+    const submitButton = document.getElementById('submitButton');
+    const responseBox = document.getElementById('responseBox');
+    const responseText = document.getElementById('responseText');
+
+    form.addEventListener('submit', function handleSubmit(e) {
+      e.preventDefault(); // Prevent form from refreshing the page
+      submitButton.disabled = true;
+      submitButton.textContent = 'Loading...';
+      responseBox.style.display = 'none';
+      responseText.textContent = '';
+
+      const formData = new FormData();
+      formData.append('userPrompt', promptInput.value);
+
+      if (fileInput.files.length > 0) {
+        formData.append('file', fileInput.files[0]);
+      }
+
+      fetch('/api/chatbot/', {
+        method: 'POST',
+        body: formData
+      })
+      .then(async res => {
+        const data = await res.json();
+        if (res.ok) {
+          responseText.textContent = data.response;
+        } else {
+          responseText.textContent = 'Error: ' + data.error;
+        }
+      })
+      .catch(error => {
+        console.error('Request failed:', error);
+        responseText.textContent = 'Error talking to AWS.';
+      })
+      .finally(() => {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Submit';
+        responseBox.style.display = 'block';
+      });
+    });
+  </script>
+</body>
+</html>

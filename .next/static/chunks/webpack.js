@@ -190,11 +190,7 @@
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-<<<<<<< HEAD
-/******/ 		__webpack_require__.h = () => ("7fbb69ddae1c5cb2")
-=======
-/******/ 		__webpack_require__.h = () => ("1486a194a80af2ba")
->>>>>>> pdf-reader-function
+/******/ 		__webpack_require__.h = () => ("23c0b8c3d3a11eb6")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */

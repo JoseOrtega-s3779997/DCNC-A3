@@ -125,11 +125,7 @@
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-<<<<<<< HEAD
-/******/ 		__webpack_require__.h = () => ("b2c9193c2e662ed7")
-=======
-/******/ 		__webpack_require__.h = () => ("1396a7283fa760cc")
->>>>>>> pdf-reader-function
+/******/ 		__webpack_require__.h = () => ("cfbc49903761ea06")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

@@ -25,7 +25,7 @@ export default function Page() {
         formData.append('file', file);
       }
 
-      const res = await fetch('/api/chatbot/', {
+      const res = await fetch('/api/chatbot/', { // sends combined data to the API
         method: 'POST',
         body: formData
       });
@@ -79,3 +79,16 @@ export default function Page() {
     </main>
   );
 }
+
+// [User types a prompt] → userPrompt
+// [User uploads a PDF] → file
+
+// [User clicks Submit] → handleSubmit()
+
+// handleSubmit() → builds FormData with prompt and file
+//               → sends to /api/chatbot/
+
+// API (backend) → reads text and PDF, sends to AWS
+//              → returns JSON response
+
+// Frontend → updates UI with response
