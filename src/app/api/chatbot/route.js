@@ -63,11 +63,11 @@ export async function POST(req) {
       }
     }
 
-    const reply = await invokeBedrock(userPrompt, pdfText);
+    const { raw, message } = await invokeBedrock(userPrompt, pdfText);
 
-    return new Response(JSON.stringify({ response: reply }), { // this will return the 'response' portion of the JSON data
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
+    return new Response(JSON.stringify({ response: message, debug: raw }), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' }
     });
   } catch (err) {
     console.error('Handler error:', err);
