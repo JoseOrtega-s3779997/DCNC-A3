@@ -22,12 +22,27 @@ import { useState } from 'react'; // This is needed so that react knows that the
 import ReactMarkdown from 'react-markdown'; // Optional formatting DONT USE
 import '../styles/style.css';
 
+// File icons
+const getFileIcon = (fileName) => {
+  const ext = fileName.split('.').pop().toLowerCase();
+  switch (ext) {
+    case 'pdf': return '📄';
+    case 'txt': return '📃';
+    case 'md':
+    case 'markdown': return '📝';
+    default: return '📁';
+  }
+};
+
 /**
  * Renders the chatbot page where the user can enter a prompt and upload a file.
  *
  * @component
  * @returns {JSX.Element} The chatbot UI component
  */
+
+const allowedExtensions = ['pdf', 'txt', 'md', 'markdown'];
+
 export default function Page() {
   // Set default values
   const [userPrompt, setUserPrompt] = useState('');
@@ -35,15 +50,27 @@ export default function Page() {
   const [loading, setLoading] = useState(false);  // Changes the button label
   const [files, setFiles] = useState([]); // File upload state
 
-  // Handle file input
+  // Validate and handle added files
   const handleFileChange = (e) => {
-    const selectedFiles = Array.from(e.target.files);
-    setFiles((prev) => [...prev, ...selectedFiles]);
+    const selected = Array.from(e.target.files);
+    const valid = selected.filter(file => {
+      const ext = file.name.split('.').pop().toLowerCase();
+      return allowedExtensions.includes(ext);
+    });
+
+    const invalid = selected.filter(file => !valid.includes(file));
+    if (invalid.length > 0) {
+      alert("Some files were not added: only PDF, TXT, MD, and Markdown files are allowed.");
+    }
+
+    // Combine without duplicates
+    setFiles(prev => [...prev, ...valid]);
+    e.target.value = null; // Clear input for future changes
   };
 
   // Remove a file by index
-  const removeFile = (indexToRemove) => {
-    setFiles((prevFiles) => prevFiles.filter((_, i) => i !== indexToRemove));
+  const removeFile = (index) => {
+    setFiles(prev => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (e) => {
