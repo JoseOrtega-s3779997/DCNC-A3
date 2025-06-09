@@ -113,6 +113,7 @@ async function invokeBedrock(userPrompt, docText = '') {
               "user's desired program or courses such as Bachelor of Information Technology (BP162P23), Cyber Security (BP355) or Computer Science (BP094P21). " + // Add variable to replace degree
               "Recommend only from the official course list. Each course is categorized as core, capstone, minor, or elective. " +
               "Use the recommended structure to suggest suitable courses based on study year and interest." +
+              "If the user has not uploaded any files or any provided documents for context on enrolmentand courses, ask them to provide more information" +
               "If the user asks a question relating to other RMIT aspects such as questions related to enrollment or policies, please refer to the provided FAQ file to answer their questions." +
               "Finally, if the user asks simple questions unrelated to RMIT, such as them simply saying 'hello', behave like a regular, default assistant."
       }],
