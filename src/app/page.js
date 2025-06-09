@@ -19,6 +19,7 @@
 "use client"; // Only rendered for client-side
 
 import { useState } from 'react'; // This is needed so that react knows that the page is updated dynamically
+import ReactMarkdown from 'react-markdown'; // Optional formatting DONT USE
 
 /**
  * Renders the chatbot page where the user can enter a prompt and upload a file.
@@ -93,9 +94,6 @@ export default function Page() {
       {response && (
       <div style={{ marginTop: '1em' }}>
         <strong>Response:</strong>
-        <pre style={{ whiteSpace: 'pre-wrap', lineHeight: '1.6' }}>
-          {response}
-        </pre>
       </div>
 )}
     </main>
