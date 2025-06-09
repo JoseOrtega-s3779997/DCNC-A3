@@ -43,8 +43,9 @@ export default function Page() {
     try {
       const formData = new FormData();
       formData.append('userPrompt', userPrompt);
-      if (file) {
-        formData.append('file', file);
+
+      for (let i = 0; i < files.length; i++) {
+        formData.append('files', files[i]); // name `files` should match what backend expects
       }
 
       const res = await fetch('/api/chatbot/', { // sends combined data to the API
@@ -83,9 +84,11 @@ export default function Page() {
 
         <input
           type="file"
-          accept=".pdf, image/jpeg, image/png, text/plain" // Add more file types if necessary
-          onChange={(e) => setFile(e.target.files[0])}
+          accept=".pdf,.txt,.md,.markdown"
+          multiple // allow selecting multiple files
+          onChange={(e) => setFiles(e.target.files)}
         />
+
 
         <button type="submit" disabled={loading}>
           {loading ? 'Loading...' : 'Submit'} 
