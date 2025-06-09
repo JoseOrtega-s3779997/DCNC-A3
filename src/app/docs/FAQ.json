@@ -1,0 +1,147 @@
+[
+  {
+    "topic": "Program and course information",
+    "qa": [
+      {
+        "question": "Where can I find general information about a program?",
+        "answer": "Information about a program can be found on the program page, via the program guide https://www.rmit.edu.au/students/my-course/program-course-information, or by contacting Study@RMIT https://www.rmit.edu.au/contact/contact-us."
+      },
+      {
+        "question": "Does my program have prerequisites or assumed knowledge?",
+        "answer": "If your program requires assumed knowledge or prerequisites for admission, it will be detailed under Admissions on the program page."
+      },
+      {
+        "question": "When and where is my program offered?",
+        "answer": "You can find out about upcoming intakes, campuses and study modes in the information summary at the top of the program page, or on the program plan page (found under 'Choose program structure')."
+      },
+      {
+        "question": "Where can I find the application dates for my program?",
+        "answer": "Application dates can be found on the Apply page, accessible via the top-right section of the program page. Upcoming intakes are listed in the information summary."
+      },
+      {
+        "question": "What outcomes can I expect from my program?",
+        "answer": "Program outcomes, including career options and further study, are on the program page. Career options appear under 'Career' and study opportunities under 'Pathways'."
+      },
+      {
+        "question": "How do I find out if this program is available for international students on study visas?",
+        "answer": "Select 'Student type: International' on the program page. Some programs may be available online only and not qualify for a study visa. This will be noted."
+      },
+      {
+        "question": "How long is this program?",
+        "answer": "Program duration is in the information summary at the top of the program page."
+      },
+      {
+        "question": "How can I find out about a program's particular requirements?",
+        "answer": "Particular requirements (e.g. physical, WIL, security checks) are noted under Admissions, including Inherent requirements and Additional information."
+      },
+      {
+        "question": "Where can I find information about credit, qualifications or advanced standing?",
+        "answer": "Credit and advanced standing are found under 'Pathways' on the program page and in RMIT's Admission and Credit Policy https://policies.rmit.edu.au/."
+      },
+      {
+        "question": "What is the CRICOS code for my program?",
+        "answer": "If CRICOS-approved, the CRICOS code will be shown on the program page and program plan."
+      },
+      {
+        "question": "I have more questions about a program. Who can I contact?",
+        "answer": "Key contacts are listed under 'Details' > 'Key contacts' on the program page. Otherwise, contact Study@RMIT https://www.rmit.edu.au/contact/contact-us."
+      }
+    ]
+  },
+  {
+    "topic": "Application process",
+    "qa": [
+      {
+        "question": "What is the application process?",
+        "answer": "The process varies for local and international students. \n- Local: https://www.rmit.edu.au/study-with-us/applying-to-rmit/local-student-applications\n- International: https://www.rmit.edu.au/study-with-us/international-students/apply-to-rmit-international-students\nClosing dates vary and some courses have individual dates. Apply early."
+      },
+      {
+        "question": "Where can I learn about student and ATAR profiles?",
+        "answer": "See the Admissions transparency page: https://www.rmit.edu.au/study-with-us/applying-to-rmit/local-student-applications/entry-requirements/admissions-transparency"
+      },
+      {
+        "question": "How are Australian citizens or permanent residents with overseas qualifications assessed for admission?",
+        "answer": "This information is under Admissions on the program page."
+      },
+      {
+        "question": "Where can I find information about RMIT's Indigenous applicant admission scheme?",
+        "answer": "RMIT's Indigenous Access Program: https://www.rmit.edu.au/students/student-life/sport-fitness/elite-athlete-program"
+      },
+      {
+        "question": "Where can I find information about RMIT's equity access schemes?",
+        "answer": "Equity access schemes: https://www.rmit.edu.au/study-with-us/applying-to-rmit/local-student-applications/equity-access-schemes"
+      },
+      {
+        "question": "What other access schemes are available?",
+        "answer": "RMIT's Elite and Emerging Athlete programs: https://www.rmit.edu.au/students/student-life/sport-fitness/elite-athlete-program"
+      },
+      {
+        "question": "What is VTAC?",
+        "answer": "The Victorian Tertiary Admissions Centre (VTAC) handles course applications, ATAR calculations, SEAS applications, and scholarship processing for Victorian tertiary institutions."
+      }
+    ]
+  },
+  {
+    "topic": "Enrolment",
+    "qa": [
+      {
+        "question": "How do I accept, change, withdraw or defer my offer?",
+        "answer": "VTAC applicants manage offers via http://www.vtac.edu.au/. Defer your place here: https://www.rmit.edu.au/students/my-course/enrolment/enrol-new-student/defer. International students: accept or defer at https://www.rmit.edu.au/study-with-us/international-students/apply-to-rmit-international-students/accept-your-offer"
+      },
+      {
+        "question": "How can I apply for a leave of absence?",
+        "answer": "Learn more: https://www.rmit.edu.au/students/my-course/enrolment/leave-of-absence. International students need compassionate or compelling reasons: https://www.rmit.edu.au/students/my-course/enrolment/compassionate-compelling-circumstances"
+      },
+      {
+        "question": "Didn't get an offer?",
+        "answer": "You can seek a formal review: https://www.rmit.edu.au/content/dam/rmit/au/en/docs/study/applying-to-rmit/request-for-review-of-a-selection-decision-final-mar21.pdf. See Selection Procedure: https://policies.rmit.edu.au/document/view.php?id=135"
+      }
+    ]
+  },
+  {
+    "topic": "Fees",
+    "qa": [
+      {
+        "question": "What are the fees for my course?",
+        "answer": "Details vary. Local students: https://www.rmit.edu.au/study-with-us/applying-to-rmit/local-student-applications/fees. International students: https://www.rmit.edu.au/study-with-us/international-students/apply-to-rmit-international-students/fees-and-scholarships"
+      },
+      {
+        "question": "When do I pay my fees?",
+        "answer": "Fees are due after census dates. Find census dates:\n- Higher Ed: https://www.rmit.edu.au/students/my-course/important-dates/census-date\n- Vocational Ed: same link\n- Associate Degrees: same link"
+      },
+      {
+        "question": "Will there be additional charges throughout my study?",
+        "answer": "Additional fees include SSAF and materials/admin fees: \n- SSAF: https://www.rmit.edu.au/study-with-us/applying-to-rmit/local-student-applications/fees/student-services-and-amenities-fee\n- Other: https://www.rmit.edu.au/study-with-us/applying-to-rmit/local-student-applications/fees/other-expenses-material-and-admin-fees"
+      },
+      {
+        "question": "What is the Student Services and Amenities Fee (SSAF)?",
+        "answer": "It funds services and activities to support student life. Info: https://www.rmit.edu.au/study-with-us/applying-to-rmit/local-student-applications/fees/student-services-and-amenities-fee"
+      },
+      {
+        "question": "Can I get a refund on my fees?",
+        "answer": "Refunds info: https://www.rmit.edu.au/students/my-course/fees-loans-payments/fee-refunds"
+      },
+      {
+        "question": "What do I need to know about HELP and VET loans?",
+        "answer": "Eligibility and application info: https://www.rmit.edu.au/students/my-course/fees-loans-payments/help-loans-vsl"
+      },
+      {
+        "question": "What scholarship opportunities are available?",
+        "answer": "See scholarships and grants: https://www.rmit.edu.au/students/careers-opportunities/scholarships"
+      },
+      {
+        "question": "Who can access funding through the Skills First Program?",
+        "answer": "Victorian government-subsidised program for eligible individuals, including those with disabilities. Criteria: https://www.rmit.edu.au/study-with-us/applying-to-rmit/local-student-applications/apply-by-level-of-study/vocational-applications/eligibility-for-a-government-subsidised-place"
+      }
+    ]
+  },
+  {
+    "topic": "Student support and activities",
+    "qa": [
+      {
+        "question": "What services does Student Connect offer?",
+        "answer": "Student Connect (https://rmit.service-now.com/connect/) supports:\n- Admissions, enrolment\n- Timetables, cards\n- Fees, results\n- Study, wellbeing, housing\n- Exchange, library, jobs and more"
+      }
+    ]
+  }
+]
