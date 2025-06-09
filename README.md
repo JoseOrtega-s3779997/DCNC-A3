@@ -50,6 +50,9 @@ Project folder layout
 │   │   ├ api/
 │   │   │   └ chabot/
 │   │   │       └ route.js  // API routing, POST is processed here
+│   │   ├ docs/
+│   │   │   ├ FAQ.json      // Raw FAQ data from RMIT
+│   │   │   └ FAQ.txt
 │   │   ├ layout.js         // Root layout
 │   │   └ page.js           // Base UI
 │   ├ components/
@@ -57,7 +60,8 @@ Project folder layout
 │   │   └ Header.js     // Header component
 │   ├ lib/
 │   │   └ index.js      // Actual AWS bedrock code
-│   └ styles/           // Page styling
+│   └ styles/  
+│       └ styles.css    // Page styling
 ├ test/
 │   └ data/
 │       └ 05-versions-space.pdf     // Temporary pdf-parse test file
