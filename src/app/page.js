@@ -90,12 +90,14 @@ export default function Page() {
         </button>
       </form>
 
-      {response && ( // Outputs the response
-        <div style={{ marginTop: '1em' }}>
-          <strong>Response:</strong>
-          <p>{response}</p>
-        </div>
-      )}
+      {response && (
+      <div style={{ marginTop: '1em' }}>
+        <strong>Response:</strong>
+        <pre style={{ whiteSpace: 'pre-wrap', lineHeight: '1.6' }}>
+          {response}
+        </pre>
+      </div>
+)}
     </main>
   );
 }
