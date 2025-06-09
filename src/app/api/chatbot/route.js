@@ -74,15 +74,32 @@ export async function POST(req) {
     const userPrompt = fields.userPrompt?.[0] || '';
     let pdfText = '';
 
-    if (files.file?.[0]) {
-      try {
-        // Read and extract text from the uploaded PDF file
-        const buffer = await fs.readFile(files.file[0].filepath);
+    const uploadedFiles = Array.isArray(files.files)
+    ? files.files
+    : files.files ? [files.files] : [];
+
+    let allFileText = '';
+
+    for (const file of uploadedFiles) {
+    try {
+        const buffer = await fs.readFile(file.filepath);
+
+        if (file.mimetype === 'application/pdf') {
         const parsed = await pdfParse(buffer);
-        pdfText = parsed.text;
-      } catch (err) {
-        console.error('PDF parse error:', err);
-      }
+        allFileText += `\n\n[PDF: ${file.originalFilename}]\n` + parsed.text;
+        } else if (
+        file.mimetype === 'text/plain' ||
+        file.mimetype === 'text/markdown' ||
+        file.originalFilename.endsWith('.md')
+        ) {
+        const text = buffer.toString('utf-8');
+        allFileText += `\n\n[Text: ${file.originalFilename}]\n` + text;
+        } else {
+        console.warn('Unsupported file type:', file.mimetype);
+        }
+    } catch (err) {
+        console.error(`Failed to read file ${file.originalFilename}:`, err);
+    }
     }
 
     // Send prompt and optional PDF text to Bedrock AI
