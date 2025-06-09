@@ -14,6 +14,9 @@
 5. Everything should be listed in package.json or package-lock.json, if not yet:
     ```sh
     npm install next@latest react@latest react-dom@latest
+    npm install pdf-parse
+    npm install formidable
+    npm install react-markdown
     ```
 6. To start runtime:
     ```sh
@@ -31,6 +34,7 @@ similar to the Lab 9 example via Javascript, JSX and React.
 * `danfojs`: Data organisation (optional panda alternative)
 * `formidable`: Works in tandem with `pdf-parse` Allows handling of file uploads in forms
 * `fs` : Built-in module for reading system files
+* `react-markdown` Automatically formats markdown
 
 ```
 Project folder layout
