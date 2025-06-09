@@ -33,7 +33,18 @@ export default function Page() {
   const [userPrompt, setUserPrompt] = useState('');
   const [response, setResponse] = useState('');
   const [loading, setLoading] = useState(false);  // Changes the button label
-  const [file, setFile] = useState(null); // File upload state
+  const [files, setFiles] = useState([]); // File upload state
+
+  // Handle file input
+  const handleFileChange = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+    setFiles((prev) => [...prev, ...selectedFiles]);
+  };
+
+  // Remove a file by index
+  const removeFile = (indexToRemove) => {
+    setFiles((prevFiles) => prevFiles.filter((_, i) => i !== indexToRemove));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevents the form from submitting and reloading the page
@@ -44,18 +55,18 @@ export default function Page() {
       const formData = new FormData();
       formData.append('userPrompt', userPrompt);
 
-      for (let i = 0; i < files.length; i++) {
-        formData.append('files', files[i]); // name `files` should match what backend expects
-      }
+      files.forEach((file) => {
+        formData.append('files', file); // Use 'files' as the field name
+      });
 
-      const res = await fetch('/api/chatbot/', { // sends combined data to the API
+      const res = await fetch('/api/chatbot/', {
         method: 'POST',
         body: formData
       });
 
-      const data = await res.json(); // assign data a JSON response from index.js
+      const data = await res.json();
       if (res.ok) {
-        setResponse(data.response); // assign 'response' to data variable
+        setResponse(data.response);
       } else {
         setResponse("Error: " + data.error);
       }
@@ -85,10 +96,27 @@ export default function Page() {
         <input
           type="file"
           accept=".pdf,.txt,.md,.markdown"
-          multiple // allow selecting multiple files
-          onChange={(e) => setFiles(e.target.files)}
+          multiple
+          onChange={handleFileChange}
         />
 
+        {/* File list with remove buttons */}
+        {files.length > 0 && (
+          <ul style={{ marginTop: '1em' }}>
+            {files.map((file, index) => (
+              <li key={index}>
+                {file.name}
+                <button
+                  type="button"
+                  onClick={() => removeFile(index)}
+                  style={{ marginLeft: '1em' }}
+                >
+                  Remove
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
 
         <button type="submit" disabled={loading}>
           {loading ? 'Loading...' : 'Submit'} 
