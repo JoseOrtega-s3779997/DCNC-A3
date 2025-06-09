@@ -72,7 +72,6 @@ export async function POST(req) {
     // 'fields' contains userPrompt, 'files' may contain a file upload
 
     const userPrompt = fields.userPrompt?.[0] || '';
-    let pdfText = '';
 
     const uploadedFiles = Array.isArray(files.files)
     ? files.files
@@ -101,9 +100,11 @@ export async function POST(req) {
         console.error(`Failed to read file ${file.originalFilename}:`, err);
     }
     }
+    console.log('Received fields:', fields);
+    console.log('Received files:', files);  
 
     // Send prompt and optional files to Bedrock AI
-    const { raw, message } = await invokeBedrock(userPrompt, pdfText);
+    const { raw, message } = await invokeBedrock(userPrompt, allFileText);
 
     return new Response(JSON.stringify({ response: message, debug: raw }), {
       status: 200,

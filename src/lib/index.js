@@ -6,6 +6,7 @@ const { BedrockRuntimeClient, ConverseCommand } = require("@aws-sdk/client-bedro
 const { fromCognitoIdentityPool } = require("@aws-sdk/credential-providers");
 const { CognitoIdentityProviderClient, InitiateAuthCommand } = require("@aws-sdk/client-cognito-identity-provider");
 const { join } = require("path");
+const path = require("path");
 const fs = require("fs/promises");
 const dotenv = require("dotenv");
 
@@ -30,12 +31,21 @@ const PASSWORD = process.env.COGNITO_PASSWORD;
 
 async function loadFullFaq() {
   try {
-    const filePath = join(__dirname, "../app/docs/FAQ.json");
+    const filePath = path.join(process.cwd(), "src", "app", "docs", "FAQ.json");
     const raw = await fs.readFile(filePath, "utf8");
-    const faqEntries = JSON.parse(raw);
-    return faqEntries.map((entry, i) =>
-      `Q${i + 1}: ${entry.question}\nA${i + 1}: ${entry.answer}`
-    ).join('\n\n');
+    const faqData = JSON.parse(raw);
+
+    let output = [];
+    faqData.forEach(topicEntry => {
+      output.push(`Topic: ${topicEntry.topic}`);
+      topicEntry.qa.forEach(({ question, answer }, i) => {
+        output.push(`Q${i + 1}: ${question}`);
+        output.push(`A${i + 1}: ${answer}`);
+        output.push('');  // blank line
+      });
+    });
+
+    return output.join('\n');
   } catch (err) {
     console.error("Error loading FAQ.json:", err);
     return "";
@@ -113,8 +123,8 @@ async function invokeBedrock(userPrompt, docText = '') {
               "user's desired program or courses such as Bachelor of Information Technology (BP162P23), Cyber Security (BP355) or Computer Science (BP094P21). " + // Add variable to replace degree
               "Recommend only from the official course list. Each course is categorized as core, capstone, minor, or elective. " +
               "Use the recommended structure to suggest suitable courses based on study year and interest." +
-              "If the user has not uploaded any files or any provided documents for context on enrolmentand courses, ask them to provide more information" +
-              "If the user asks a question relating to other RMIT aspects such as questions related to enrollment or policies, please refer to the provided FAQ file to answer their questions." +
+              "If the user has not uploaded any files or any provided documents for context on enrolmentand courses, ask them to provide more information, unless" +
+              "if the user asks a question relating to other RMIT aspects such as questions related to enrollment or policies, please refer to the FAQ file to answer their questions." +
               "Finally, if the user asks simple questions unrelated to RMIT, such as them simply saying 'hello', behave like a regular, default assistant."
       }],
       messages: [{
