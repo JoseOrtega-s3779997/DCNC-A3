@@ -6,6 +6,7 @@ const { BedrockRuntimeClient, ConverseCommand } = require("@aws-sdk/client-bedro
 const { fromCognitoIdentityPool } = require("@aws-sdk/credential-providers");
 const { CognitoIdentityProviderClient, InitiateAuthCommand } = require("@aws-sdk/client-cognito-identity-provider");
 const { join } = require("path");
+const fs = require("fs/promises");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -26,6 +27,20 @@ const USER_POOL_ID = process.env.USER_POOL_ID;
 const APP_CLIENT_ID = process.env.APP_CLIENT_ID;
 const USERNAME = process.env.COGNITO_USERNAME;
 const PASSWORD = process.env.COGNITO_PASSWORD;
+
+async function loadFullFaq() {
+  try {
+    const filePath = join(__dirname, "../app/docs/FAQ.json");
+    const raw = await fs.readFile(filePath, "utf8");
+    const faqEntries = JSON.parse(raw);
+    return faqEntries.map((entry, i) =>
+      `Q${i + 1}: ${entry.question}\nA${i + 1}: ${entry.answer}`
+    ).join('\n\n');
+  } catch (err) {
+    console.error("Error loading FAQ.json:", err);
+    return "";
+  }
+}
 
 /**
  * Authenticates the user with AWS Cognito using username and password,
@@ -89,17 +104,26 @@ async function invokeBedrock(userPrompt, docText = '') {
       credentials: await getCredentials(USERNAME, PASSWORD)
     });
 
+    const faqText = await loadFullFaq();
+
     const input = {
       modelId: MODEL_ID,
       system: [{
         text: "You are a helpful assistant that supports students in selecting courses from the " +
-              "Bachelor of Cyber Security program at RMIT (codes BP355/BP356). " + // Add variable to replace degree
+              "user's desired program or courses such as Bachelor of Information Technology (BP162P23), Cyber Security (BP355) or Computer Science (BP094P21). " + // Add variable to replace degree
               "Recommend only from the official course list. Each course is categorized as core, capstone, minor, or elective. " +
-              "Use the recommended structure to suggest suitable courses based on study year and interest."
+              "Use the recommended structure to suggest suitable courses based on study year and interest." +
+              "If the user asks a question relating to other RMIT aspects such as questions related to enrollment or policies, please refer to the provided FAQ file to answer their questions." +
+              "Finally, if the user asks simple questions unrelated to RMIT, such as them simply saying 'hello', behave like a regular, default assistant."
       }],
       messages: [{
         role: "user",
-        content: [{ text: `${userPrompt}\n\n${docText ? "Document:\n" + docText : ''}` }]
+        content: [{ 
+            text:
+            `${userPrompt}\n\n` +
+            `${docText ? "Document:\n" + docText + "\n\n" : ""}` +
+            `${faqText ? "FAQ:\n" + faqText : ""}`
+        }]
       }],
         inferenceConfig: { // OPTIONAL: Have a function to allow changing of temperature and topP
             maxTokens: 1024, // <= Output size; the max amount of tokens (words) allowed to be generated

@@ -102,7 +102,7 @@ export async function POST(req) {
     }
     }
 
-    // Send prompt and optional PDF text to Bedrock AI
+    // Send prompt and optional files to Bedrock AI
     const { raw, message } = await invokeBedrock(userPrompt, pdfText);
 
     return new Response(JSON.stringify({ response: message, debug: raw }), {
