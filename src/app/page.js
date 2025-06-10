@@ -20,7 +20,6 @@
 
 import { useState } from 'react'; // This is needed so that react knows that the page is updated dynamically
 import ReactMarkdown from 'react-markdown'; // Optional formatting DONT USE
-import '../styles/style.css';
 
 // File icons
 const getFileIcon = (fileName) => {

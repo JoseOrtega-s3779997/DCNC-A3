@@ -1,5 +1,6 @@
 import '../styles/style.css';
-import Footer from '../components'
+import Footer from '../components/Footer.js'
+import Header from '../components/Header.js'
 
 export const metadata = {
   title: 'RMIT STEM Assistant',
