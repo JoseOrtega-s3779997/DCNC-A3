@@ -1,4 +1,4 @@
-import '../styles/style.css';
+import '../styles/globals.css';
 import Footer from '../components/Footer.js'
 import Header from '../components/Header.js'
 
