@@ -74,6 +74,12 @@ export default function Page() {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevents the form from submitting and reloading the page
+
+    if (!userPrompt.trim()) {
+    alert("Please enter a question before submitting.");
+    return;
+  }
+
     setLoading(true);
     setResponse('');
 
@@ -106,8 +112,8 @@ export default function Page() {
 
   return (
     <main>
-      <h1>RMIT STEM Advisor</h1>
-      <p>This AI assistant will help answer your questions related to STEM courses</p>
+      <h1>Hello! How can I help?</h1>
+      <p>Ask me anything about RMIT courses</p>
 
       <form onSubmit={handleSubmit}> {/* Calls the handleSubmit function when user submits the form */}
         <textarea
