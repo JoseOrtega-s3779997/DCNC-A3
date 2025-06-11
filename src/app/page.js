@@ -20,6 +20,8 @@
 
 import { useState } from 'react'; // This is needed so that react knows that the page is updated dynamically
 import ReactMarkdown from 'react-markdown'; // Optional formatting DONT USE
+import rehypeRaw from 'rehype-raw'; // Allows rendering links
+import remarkGfm from "remark-gfm"; // enables raw HTML like <a>
 
 // File icons
 const getFileIcon = (fileName) => {
@@ -125,12 +127,19 @@ export default function Page() {
           rows={3}
         />
 
-        <input
-          type="file"
-          accept=".pdf,.txt,.md,.markdown"
-          multiple
-          onChange={handleFileChange}
-        />
+        <div className="file-upload">
+          <label htmlFor="fileInput" className="upload-button">
+            📎 {files.length > 0 ? `${files.length} file(s) selected` : 'Browse files'}
+          </label>
+          <input
+            id="fileInput"
+            type="file"
+            accept=".pdf,.txt,.md,.markdown"
+            multiple
+            onChange={handleFileChange}
+          />
+        </div>
+
 
         {/* File list with remove buttons */}
         {files.length > 0 && (
@@ -158,7 +167,22 @@ export default function Page() {
       {response && (
       <div style={{ marginTop: '1em' }}>
         <strong>Response:</strong>
-        <ReactMarkdown>{response}</ReactMarkdown>
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          rehypePlugins={[rehypeRaw]}
+          components={{
+            a: ({ node, ...props }) => (
+              <a
+                {...props}
+                className="text-blue-600 underline hover:text-blue-800"
+                target="_blank"
+                rel="noopener noreferrer"
+              />
+            ),
+          }}
+        >
+          {response}
+        </ReactMarkdown>
       </div>
 )}
     </main>

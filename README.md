@@ -61,7 +61,7 @@ Project folder layout
 │   ├ lib/
 │   │   └ index.js      // Actual AWS bedrock code
 │   └ styles/  
-│       └ styles.css    // Page styling
+│       └ globals.css    // Page styling
 ├ test/
 │   └ data/
 │       └ 05-versions-space.pdf     // Temporary pdf-parse test file

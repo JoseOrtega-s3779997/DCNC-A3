@@ -1,7 +1,9 @@
+import '../styles/header.css'
+
 export default function Header() {
-    return (
-        <header>
-            <h1>RMIT Stem Advisor</h1>
-        </header>
-    )
+  return (
+    <header className="site-header">
+      <h1 className="site-title">RMIT STEM Advisor</h1>
+    </header>
+  );
 }

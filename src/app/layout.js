@@ -1,23 +1,21 @@
 import '../styles/globals.css';
-import Footer from '../components/Footer.js'
-import Header from '../components/Header.js'
+import '../styles/layout.css';
+import Footer from '../components/Footer.js';
+import Header from '../components/Header.js';
 
 export const metadata = {
   title: 'RMIT STEM Assistant',
-  description: 'UI for RMIT Assitant',
-}
+  description: 'UI for RMIT Assistant',
+};
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body className="page-wrapper">
         <Header />
-          <main>
-            {children}
-          </main>
+        <main className="content">{children}</main>
         <Footer />
       </body>
-      
     </html>
-  )
+  );
 }

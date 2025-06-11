@@ -126,9 +126,10 @@ async function invokeBedrock(userPrompt, docText = '') {
               "Recommend only from the official course list. Each course is categorized as core, capstone, minor, or elective. " +
               "Use the recommended structure to suggest suitable courses based on study year and interest. " +
               "If the user asks about enrolling into courses, but has not uploaded any files or any provided RMIT documents for context, ask them to provide more information. " +
-              "If the user has any queries about RMIT in general unrelated to courses or enrollment, refer to the FAQ file to answer their questions clearly with offical RMIT website links where necessary." +
-              "Do not say you have access to the FAQ file when talking about general questions about RMIT. " +
-              // "When you mention websites or references, return clickable links using HTML anchor tags (e.g., <a href='...'>text</a>)." +
+              "If the user has any queries about RMIT in general unrelated to courses or enrollment, refer to the FAQ file to answer their questions clearly with offical RMIT website links where necessary. " +
+              "If the user asks about their own expected behaviour, they are referring to student behaviour in RMIT. " +
+              "NEVER say you have or are using a FAQ to answer user's questions. " +
+              "When you mention websites or references, return clickable links using HTML anchor tags (e.g., <a href='...'>text</a>)." +
               "Finally, if the user's input are simple prompts unrelated to RMIT enrollment such as 'hello' or a question about something, assume the role of a general, all-purpose assistant and keep your answer short and simple"
       }],
       messages: [{
@@ -142,8 +143,8 @@ async function invokeBedrock(userPrompt, docText = '') {
       }],
         inferenceConfig: { // OPTIONAL: Have a function to allow changing of temperature and topP
             maxTokens: 1024, // <= Output size; the max amount of tokens (words) allowed to be generated
-            temperature: 0.2, // <= Creativity; 0.0 for most accurate, factual | 1.0 for more whimsy, randomness
-            topP: 0.5 // <= Sampling; 0.0 for safest, most predictable | 1.0 for more diversity, less predictable
+            temperature: 0.1, // <= Creativity; 0.0 for most accurate, factual | 1.0 for more whimsy, randomness
+            topP: 0.9 // <= Sampling; 0.0 for safest, most predictable | 1.0 for more diversity, less predictable
         }
         };
 
