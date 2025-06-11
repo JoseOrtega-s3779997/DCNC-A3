@@ -126,7 +126,7 @@ async function invokeBedrock(userPrompt, docText = '') {
               "Recommend only from the official course list. Each course is categorized as core, capstone, minor, or elective. " +
               "Use the recommended structure to suggest suitable courses based on study year and interest." +
               "If the user asks about enrolling into courses, but has not uploaded any files or any provided RMIT documents for context, ask them to provide more information." +
-              "If the user has any queries about RMIT in general unrelated to courses or enrollment, refer to the FAQ.json file to answer their questions clearly with offical RMIT website links where necessary." +
+              "If the user has any queries about RMIT in general unrelated to courses or enrollment, refer to the FAQ.json file to answer their questions clearly with offical RMIT website links where necessary, but don't mention you have access to the file itself." +
               "Finally, if the user's input are simple prompts unrelated to RMIT enrollment such as 'hello' or a question about something, assume the role of a general, all-purpose friendly assistant."
       }],
       messages: [{
