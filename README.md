@@ -35,6 +35,8 @@ similar to the Lab 9 example via Javascript, JSX and React.
 * `formidable`: Works in tandem with `pdf-parse` Allows handling of file uploads in forms
 * `fs` : Built-in module for reading system files
 * `react-markdown` Automatically formats markdown
+* `remark` & `rehype` : Allows rendering of html links
+* `tailwindcss` : CSS rendering on Next
 
 ```
 Project folder layout
