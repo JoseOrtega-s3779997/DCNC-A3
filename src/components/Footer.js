@@ -10,7 +10,7 @@ export default function Footer() {
                 <div><a href="https://www.rmit.edu.au/students/support-services/student-connect">Student Connect</a></div>
                 <div><a href="https://www.rmit.edu.au/students/my-course/program-course-information/course-guides">Course Guide</a></div>
             </div>
-            <p id="footer-copyright">Copyright © 2025 RMIT University</p>
+            <p id="footer-copyright">By Jose Ortega | Copyright © 2025 RMIT University</p>
         </footer>
     )
 }
