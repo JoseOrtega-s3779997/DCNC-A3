@@ -39,10 +39,12 @@ async function loadFullFaq() {
     faqData.forEach(topicEntry => {
       output.push(`Topic: ${topicEntry.topic}`);
       topicEntry.qa.forEach(({ question, answer }, i) => {
-        output.push(`Q${i + 1}: ${question}`);
-        output.push(`A${i + 1}: ${answer}`);
-        output.push('');  // blank line
-      });
+      const cleanQ = question?.trim().replace(/\s+/g, ' ') || ''; // Trim Q and A
+      const cleanA = answer?.trim().replace(/\s+/g, ' ') || '';
+      output.push(`Q${i + 1}: ${cleanQ}`);
+      output.push(`A${i + 1}: ${cleanA}`);
+      output.push('');
+    });
     });
 
     return output.join('\n');
