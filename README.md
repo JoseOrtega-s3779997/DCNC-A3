@@ -1,4 +1,5 @@
-# Test for bedrock access
+# IMPORTANT
+The vercel website is unable to read .env.local file to read the credentials and fails to talk to AWS. Please clone the repository and use `npm run dev` in terminal to run it. please user your own Amazon Cognito account if needed.
 ## Setup
 1. Register your account use your student email [here](https://us-east-1kopki1lpu.auth.us-east-1.amazoncognito.com/login?client_id=3h7m15971bnfah362dldub1u2p&response_type=code&scope=aws.cognito.signin.user.admin+email+openid&redirect_uri=https%3A%2F%2Fd84l1y8p4kdic.cloudfront.net)
 2. In `.env.local`, set your credentials, where `USERNAME` is your email, and `PASSWORD` is the password used to register.
