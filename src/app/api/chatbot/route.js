@@ -79,7 +79,7 @@ export async function POST(req) {
 
     let allFileText = '';
 
-    for (const file of uploadedFiles) {
+    // for (const file of uploadedFiles) {
     // try {
     //     const buffer = await fs.readFile(file.filepath);
 
@@ -99,7 +99,7 @@ export async function POST(req) {
     // } catch (err) {
     //     console.error(`Failed to read file ${file.originalFilename}:`, err);
     // }
-    }
+    // }
     console.log('Received fields:', fields);
     console.log('Received files:', files);  
 
