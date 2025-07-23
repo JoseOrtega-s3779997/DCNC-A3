@@ -24,16 +24,16 @@ import rehypeRaw from 'rehype-raw'; // Allows rendering links
 import remarkGfm from "remark-gfm"; // enables raw HTML like <a>
 
 // File icons
-const getFileIcon = (fileName) => {
-  const ext = fileName.split('.').pop().toLowerCase();
-  switch (ext) {
-    case 'pdf': return '📄';
-    case 'txt': return '📃';
-    case 'md':
-    case 'markdown': return '📝';
-    default: return '📁';
-  }
-};
+// const getFileIcon = (fileName) => {
+//   const ext = fileName.split('.').pop().toLowerCase();
+//   switch (ext) {
+//     case 'pdf': return '📄';
+//     case 'txt': return '📃';
+//     case 'md':
+//     case 'markdown': return '📝';
+//     default: return '📁';
+//   }
+// };
 
 /**
  * Renders the chatbot page where the user can enter a prompt and upload a file.
