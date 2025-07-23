@@ -80,25 +80,25 @@ export async function POST(req) {
     let allFileText = '';
 
     for (const file of uploadedFiles) {
-    try {
-        const buffer = await fs.readFile(file.filepath);
+    // try {
+    //     const buffer = await fs.readFile(file.filepath);
 
-        if (file.mimetype === 'application/pdf') {
-        const parsed = await pdfParse(buffer);
-        allFileText += `\n\n[PDF: ${file.originalFilename}]\n` + parsed.text;
-        } else if (
-        file.mimetype === 'text/plain' ||
-        file.mimetype === 'text/markdown' ||
-        file.originalFilename.endsWith('.md')
-        ) {
-        const text = buffer.toString('utf-8');
-        allFileText += `\n\n[Text: ${file.originalFilename}]\n` + text;
-        } else {
-        console.warn('Unsupported file type:', file.mimetype);
-        }
-    } catch (err) {
-        console.error(`Failed to read file ${file.originalFilename}:`, err);
-    }
+    //     if (file.mimetype === 'application/pdf') {
+    //     const parsed = await pdfParse(buffer);
+    //     allFileText += `\n\n[PDF: ${file.originalFilename}]\n` + parsed.text;
+    //     } else if (
+    //     file.mimetype === 'text/plain' ||
+    //     file.mimetype === 'text/markdown' ||
+    //     file.originalFilename.endsWith('.md')
+    //     ) {
+    //     const text = buffer.toString('utf-8');
+    //     allFileText += `\n\n[Text: ${file.originalFilename}]\n` + text;
+    //     } else {
+    //     console.warn('Unsupported file type:', file.mimetype);
+    //     }
+    // } catch (err) {
+    //     console.error(`Failed to read file ${file.originalFilename}:`, err);
+    // }
     }
     console.log('Received fields:', fields);
     console.log('Received files:', files);  
